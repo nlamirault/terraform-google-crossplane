@@ -1,24 +1,26 @@
-# Observability / Prometheus
+# Crossplane on Google Cloud Platform
 
-Terraform module which configure Prometheus resources on Google Cloud.
+Terraform module which configure Crossplane resources on Google Cloud.
 
 ## Usage
 
 ```hcl
-module "prometheus" {
-  source  = "nlamirault/observability/google//modules/prometheus"
-  version = "0.0.0"
+module "crossplaneé" {
+  source  = "nlamirault/crossplane/google"
+  version = "x.y.z"
 
-  project = var.project
-  region  = var.region
+  project         = var.project
+  namespace       = var.namespace
+  service_account = var.service_account
 }
 ```
 
 and variables :
 
 ```hcl
-project  = "...."
-region = "...."
+project         = "...."
+namespace       = "crossplane-system"
+service_account = "provider-gcp"
 }
 ```
 
@@ -50,9 +52,9 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace | `string` | `"crossplane-system"` | no |
 | <a name="input_project"></a> [project](#input\_project) | The project in which the resource belongs | `string` | n/a | yes |
-| <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | n/a | yes |
+| <a name="input_service_account"></a> [service\_account](#input\_service\_account) | The Kubernetes service account | `string` | `"provider-gcp"` | no |
 
 ## Outputs
 
