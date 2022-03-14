@@ -32,72 +32,20 @@ name: Tfsec
 # events but only for the main branch
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   tfsec:
-    name: loki
+    name: crossplane
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Terraform security scan master
-        uses: triat/terraform-security-scan@master
-        with:
-          tfsec_actions_working_dir: 'modules/loki'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  tfsec_prometheus:
-    name: prometheus
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Terraform security scan master
-        uses: triat/terraform-security-scan@master
+      - name: Terraform security scan module
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.0.2
         with:
-          tfsec_actions_working_dir: 'modules/prometheus'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  tfsec_thanos:
-    name: thanos
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Terraform security scan master
-        uses: triat/terraform-security-scan@master
-        with:
-          tfsec_actions_working_dir: 'modules/thanos'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  tfsec_tempo:
-    name: tempo
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Terraform security scan master
-        uses: triat/terraform-security-scan@master
-        with:
-          tfsec_actions_working_dir: 'modules/tempo'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  tfsec_grafana:
-    name: grafana
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Terraform security scan master
-        uses: triat/terraform-security-scan@master
-        with:
-          tfsec_actions_working_dir: 'modules/grafana'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
+          working_dir: .
