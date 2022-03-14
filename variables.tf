@@ -24,9 +24,11 @@ variable "project" {
 variable "namespace" {
   type        = string
   description = "The Kubernetes namespace"
+  default     = "crossplane-system"
 }
 
 variable "service_account" {
   type        = string
   description = "The Kubernetes service account"
+  default     = "provider-gcp"
 }
